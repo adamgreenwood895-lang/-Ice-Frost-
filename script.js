@@ -41,22 +41,9 @@ if (Speech && orb) {
     };
 
     orb.onclick = () => {
-    const msg = document.getElementById("chat-message");
-    msg.innerText = "LISTENING";
-    msg.style.opacity = "1";
-    msg.style.color = "#ffffff";
-    
-    // Visual feedback: Make the orb "pulse" when clicked
-    orb.style.transform = "scale(0.95)";
-    setTimeout(() => orb.style.transform = "scale(1)", 100);
-
-    try {
-        rec.stop();
+        document.getElementById("chat-message").innerText = "LISTENING...";
         rec.start();
-    } catch(e) {
-        rec.start();
-};
-
+    };
 }
 
 // --- PRODUCT LOADER ---
