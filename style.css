@@ -1,40 +1,78 @@
+/* GLOBAL RESET & THEME */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+:root {
+    --frost-blue: #00f2ff;
+    --deep-ice: #0a111a;
+    --text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
+}
 
-/* LANDING PAGE */
-.landing-page.vertical-crop {
-    background: #000 url('assets/iceman_bg1.png') no-repeat center center;
+body { 
+    background-color: #000; 
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    overflow-x: hidden;
+}
+
+/* LANDING PAGE - PORTRAIT FIX */
+.landing-page {
+    background: #000 url('assets/iceman_portrait.png') no-repeat center center;
     background-size: cover;
-    height: 100dvh; width: 100vw;
-    overflow: hidden;
+    height: 100dvh;
+    width: 100vw;
+    position: relative;
 }
-.ice-hitbox {
+
+/* THE ORB HITBOX - PRECISION ALIGNMENT */
+.orb-container {
     position: absolute;
-    top: 65%;
-    left: 50%; 
+    top: 68%; /* Precise alignment with the hand in the image */
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 180px; 
-    height: 180px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(120, 180, 255, 0.2) 0%, transparent 70%);
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    z-index: 10;
-    transition: 0.3s;
+    z-index: 100;
 }
 
-/* UI THEME */
-.bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh;
-.product-stage { padding: 20px; display: flex; flex-direction: column; align-items: center; }
-.flow-step { display: none; text-align: center; }
-.flow-step.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease; }
-@keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-.ice-btn {
-    background: #fff; color: #000; border: none; padding: 20px;
-    width: 100%; border-radius: 50px; font-weight: 900; letter-spacing: 2px;
-    margin-top: 20px; cursor: pointer;
+.orb-hitbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.preview-img { width: 100%; max-width: 300px; border-radius: 20px; margin-bottom: 20px; }
-.progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin: 20px 0; }
-.fill { height: 100%; width: 0%; background: #78b4ff; transition: width 1s ease; box-shadow: 0 0 15px #78b4ff; }
 
+.orb-container:active .orb-hitbox {
+    transform: scale(0.9);
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.3) 0%, transparent 70%);
+}
 
+.orb-text {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--frost-blue);
+    opacity: 0.6;
+    text-transform: uppercase;
+    font-weight: 900;
+    pointer-events: none;
+    text-shadow: var(--text-shadow);
+}
+
+/* PRODUCTS GRID */
+.bg-dark { background: radial-gradient(circle at top, var(--deep-ice), #000); min-height: 100vh; padding: 40px 20px; }
+.product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 600px; margin: 0 auto; }
+.product-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+.product-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+.ice-btn { width: 100%; padding: 12px; background: #fff; border: none; border-radius: 25px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 11px; }
+
+/* CHECKOUT FLOW */
+.flow-step { display: none; flex-direction: column; align-items: center; text-align: center; max-width: 400px; margin: 0 auto; animation: frostIn 0.8s forwards; }
+.flow-step.active { display: flex; }
+@keyframes frostIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+
+.progress-bar { width: 100%; height: 2px; background: rgba(255,255,255,0.1); margin: 30px 0; position: relative; }
+.progress-fill { height: 100%; width: 0%; background: var(--frost-blue); box-shadow: var(--text-shadow); transition: width 1s ease; }
