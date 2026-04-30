@@ -1,91 +1,87 @@
 const DB = {
     hoodies: [
         { name: "FROST HOODIE V1", price: "£85", image: "assets/hoodies/hoodie1.jpg" },
-        { name: "FROST HOODIE V2", price: "£85", image: "assets/hoodies/hoodie2.jpg" }
+        { name: "FROST HOODIE V2", price: "£85", image: "assets/hoodies/hoodie2.jpg" },
+        { name: "FROST HOODIE V3", price: "£85", image: "assets/hoodies/hoodie3.jpg" },
+        { name: "FROST HOODIE V4", price: "£85", image: "assets/hoodies/hoodie4.jpg" }
     ],
-    tshirts: [{ name: "ICE TEE", price: "£35", image: "assets/tshirts/tshirt1.jpg" }],
-    tracksuits: [{ name: "SUB-ZERO SET", price: "£120", image: "assets/tracksuits/tracksuit1.jpg" }],
-    bags: [{ name: "ARCTIC BAG", price: "£55", image: "assets/bags/bag1.jpg" }]
+    tshirts: [
+        { name: "ICE TEE V1", price: "£35", image: "assets/tshirts/tshirt1.jpg" },
+        { name: "ICE TEE V2", price: "£35", image: "assets/tshirts/tshirt2.jpg" },
+        { name: "ICE TEE V3", price: "£35", image: "assets/tshirts/tshirt3.jpg" },
+        { name: "ICE TEE V4", price: "£35", image: "assets/tshirts/tshirt4.jpg" }
+    ]
+    // Add tracksuits and bags following the same 4-item pattern
 };
 
-// --- VOICE SYSTEM ---
-const orb = document.getElementById("orb");
+// --- VOICE LOGIC ---
+const orb = document.getElementById("orbTrigger");
 const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (Speech && orb) {
-    const rec = new Speech();
-    
-    rec.onresult = (e) => {
-        const cmd = e.results[0][0].transcript.toLowerCase();
-        const msg = document.getElementById("chat-message");
-        msg.innerText = "ACCESSING: " + cmd;
+    const recognition = new Speech();
+    recognition.onresult = (e) => {
+        const transcript = e.results[0][0].transcript.toLowerCase();
+        let cat = "";
+        if(transcript.includes("hoodie")) cat = "hoodies";
+        if(transcript.includes("tshirt") || transcript.includes("tee")) cat = "tshirts";
+        if(transcript.includes("tracksuit")) cat = "tracksuits";
+        if(transcript.includes("bag")) cat = "bags";
 
-        let category = "";
-        if(cmd.includes("hoodie")) category = "hoodies";
-        if(cmd.includes("tshirt") || cmd.includes("tee")) category = "tshirts";
-        if(cmd.includes("tracksuit")) category = "tracksuits";
-        if(cmd.includes("bag")) category = "bags";
-
-        if(category) {
-            localStorage.setItem("category", category);
-            // Brief delay so user sees the "ACCESSING" text before the page flips
-            setTimeout(() => window.location.href = "products.html", 1000);
+        if(cat) {
+            localStorage.setItem("frost_cat", cat);
+            window.location.href = "products.html";
         }
     };
 
     orb.onclick = () => {
-        const msg = document.getElementById("chat-message");
-        msg.innerText = "LISTENING";
-            rec.start();
+        document.querySelector(".orb-text").innerText = "LISTENING";
+        recognition.start();
     };
 }
 
 // --- PRODUCT LOADER ---
 function loadProducts() {
-    const cat = localStorage.getItem("category") || "hoodies";
-    const stage = document.getElementById("stage");
-    const items = DB[cat] || [];
+    const cat = localStorage.getItem("frost_cat") || "hoodies";
+    const grid = document.getElementById("productGrid");
+    const items = DB[cat] || DB.hoodies;
 
-    // Clear stage before loading
-    stage.innerHTML = "";
-
-    items.forEach(p => {
+    items.forEach(item => {
         const div = document.createElement("div");
         div.className = "product-card";
-        div.style.marginBottom = "40px";
         div.innerHTML = `
-            <img src="${p.image}" style="width:100%; border-radius:20px; border: 1px solid rgba(255,255,255,0.1);">
-            <h3 style="margin:15px 0; letter-spacing: 2px;">${p.name}</h3>
-            <p style="color: #78b4ff; font-weight: 800; margin-bottom: 15px;">${p.price}</p>
-            <button class="ice-btn" onclick='buy(${JSON.stringify(p).replace(/'/g, "&apos;")})'>SECURE ITEM</button>
+            <img src="${item.image}">
+            <h4 style="font-size:12px; margin-bottom:5px;">${item.name}</h4>
+            <p style="color:#00f2ff; font-weight:800; margin-bottom:10px;">${item.price}</p>
+            <button class="ice-btn" onclick='selectProduct(${JSON.stringify(item)})'>SELECT</button>
         `;
-        stage.appendChild(div);
+        grid.appendChild(div);
     });
 }
 
-function buy(p) {
-    localStorage.setItem("selectedProduct", JSON.stringify(p));
+function selectProduct(item) {
+    localStorage.setItem("frost_item", JSON.stringify(item));
     window.location.href = "checkout.html";
 }
 
-// --- TRACKING SYSTEM ---
+// --- CHECKOUT FLOW ---
+function startPayment() {
+    document.getElementById("step1").classList.remove("active");
+    document.getElementById("step2").classList.add("active");
+}
+
 function startTracking() {
-    // UI Transition
     document.getElementById("step2").classList.remove("active");
     document.getElementById("step3").classList.add("active");
     
-    const fill = document.getElementById("fill");
-    const status = document.getElementById("status");
-    const stages = ["Initializing...", "Frozen...", "Dispatched", "Delivered"];
+    const fill = document.getElementById("trackFill");
+    const status = document.getElementById("trackStatus");
+    const phases = ["ENCRYPTING...", "WAREHOUSE...", "SHIPPING...", "DELIVERED"];
     
-    stages.forEach((text, i) => {
+    phases.forEach((text, i) => {
         setTimeout(() => {
             fill.style.width = ((i + 1) * 25) + "%";
             status.innerText = text;
-            if (text === "Delivered") {
-                status.style.color = "#78b4ff";
-                status.style.textShadow = "0 0 10px #78b4ff";
-            }
         }, (i + 1) * 2000);
     });
-}
+        }
