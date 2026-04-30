@@ -30,28 +30,13 @@ if (Speech && orb) {
             localStorage.setItem("category", category);
             // Brief delay so user sees the "ACCESSING" text before the page flips
             setTimeout(() => window.location.href = "products.html", 1000);
-        } else {
-            msg.innerText = "COMMAND NOT RECOGNIZED";
-            msg.style.color = "#ff4b4b"; // Red tint for error
-            setTimeout(() => { 
-                msg.innerText = "TAP ORB TO COMMAND"; 
-                msg.style.color = "rgba(120, 180, 255, 0.5)";
-            }, 2000);
         }
     };
 
     orb.onclick = () => {
         const msg = document.getElementById("chat-message");
         msg.innerText = "LISTENING";
-        msg.style.opacity = "1";
-        msg.style.color = "#ffffff";
-        
-        try {
-            rec.stop(); // Stop any current session before starting a new one
             rec.start();
-        } catch(e) {
-            rec.start();
-        }
     };
 }
 
