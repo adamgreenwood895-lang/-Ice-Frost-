@@ -1,40 +1,25 @@
-/* GLOBAL RESET & THEME */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-    --frost-blue: #00f2ff;
-    --deep-ice: #0a111a;
-    --text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
-}
+body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-body { 
-    background-color: #000; 
-    color: #fff; 
-    font-family: 'Inter', sans-serif; 
-    overflow-x: hidden;
-}
-
-/* LANDING PAGE - PORTRAIT FIX */
+/* LANDING PAGE CONFIG */
 .landing-page {
     background: #000 url('assets/iceman_portrait.png') no-repeat center center;
     background-size: cover;
     height: 100dvh;
     width: 100vw;
-    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-/* THE ORB HITBOX - PRECISION ALIGNMENT */
 .orb-container {
     position: absolute;
-    top: 68%; /* Precise alignment with the hand in the image */
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 68%; /* Precise hand alignment */
     width: 220px;
     height: 220px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
-    z-index: 100;
 }
 
 .orb-hitbox {
@@ -42,37 +27,39 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.orb-container:active .orb-hitbox {
-    transform: scale(0.9);
-    background: radial-gradient(circle, rgba(0, 242, 255, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.15) 0%, transparent 70%);
+    z-index: 1;
 }
 
 .orb-text {
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--frost-blue);
-    opacity: 0.6;
-    text-transform: uppercase;
+    color: #00f2ff;
+    font-size: 11px;
     font-weight: 900;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.9);
+    z-index: 2;
     pointer-events: none;
-    text-shadow: var(--text-shadow);
+    transition: 0.3s;
 }
 
-/* PRODUCTS GRID */
-.bg-dark { background: radial-gradient(circle at top, var(--deep-ice), #000); min-height: 100vh; padding: 40px 20px; }
-.product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 600px; margin: 0 auto; }
-.product-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
-.product-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
-.ice-btn { width: 100%; padding: 12px; background: #fff; border: none; border-radius: 25px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 11px; }
+/* UI THEME */
+.bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh; padding: 40px 20px; }
+.section-title { text-align: center; letter-spacing: 12px; margin-bottom: 50px; font-weight: 200; }
 
-/* CHECKOUT FLOW */
-.flow-step { display: none; flex-direction: column; align-items: center; text-align: center; max-width: 400px; margin: 0 auto; animation: frostIn 0.8s forwards; }
+/* PRODUCT GRID */
+.product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 500px; margin: 0 auto; }
+.product-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 15px; text-align: center; }
+.product-card img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
+
+/* BUTTONS */
+.frost-btn { width: 100%; padding: 18px; border-radius: 40px; border: none; font-weight: 900; cursor: pointer; background: #fff; color: #000; letter-spacing: 1px; }
+.frost-btn:active { transform: scale(0.96); }
+
+/* FLOW ANIMATIONS */
+.flow-step { display: none; flex-direction: column; align-items: center; max-width: 400px; margin: 0 auto; animation: frostFade 0.6s ease-out; }
 .flow-step.active { display: flex; }
-@keyframes frostIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+@keyframes frostFade { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: blur(0); } }
 
-.progress-bar { width: 100%; height: 2px; background: rgba(255,255,255,0.1); margin: 30px 0; position: relative; }
-.progress-fill { height: 100%; width: 0%; background: var(--frost-blue); box-shadow: var(--text-shadow); transition: width 1s ease; }
+.track-line { width: 100%; height: 2px; background: rgba(255,255,255,0.1); margin: 30px 0; }
+.track-fill { height: 100%; width: 0%; background: #00f2ff; box-shadow: 0 0 20px #00f2ff; transition: width 1.2s ease; }
