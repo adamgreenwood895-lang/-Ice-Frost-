@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORDO | Processing</title>
+    <title>FROST | PROCESSING</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark">
@@ -17,7 +17,7 @@
 
         <div id="step2" class="flow-step">
             <h2>SECURE PAYMENT</h2>
-            <div class="glass-card">ID: •••• •••• •••• 4242</div>
+            <div class="glass-card">ENC_ID: •••• •••• •••• 4242</div>
             <button class="ice-btn" onclick="startTracking()">AUTHORIZE</button>
         </div>
 
@@ -27,6 +27,7 @@
             <p id="status">Syncing Logistics...</p>
         </div>
     </div>
+
     <script src="script.js"></script>
     <script>
         const p = JSON.parse(localStorage.getItem("selectedProduct"));
