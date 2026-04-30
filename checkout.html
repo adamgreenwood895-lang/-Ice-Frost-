@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FROST | Secure Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-checkout">
+    <div class="checkout-card" id="flowContainer">
+        <div id="step-confirm" class="step-content active">
+            <img id="confImage" src="" class="conf-img">
+            <h2 id="confName">Product Name</h2>
+            <p id="confPrice" class="ice-text">£0.00</p>
+            <button class="ice-btn" onclick="goToStep('step-payment')">Confirm Order</button>
+        </div>
 
+        <div id="step-payment" class="step-content">
+            <h2>Secure Payment</h2>
+            <div class="glass-input">ENC_CARD_ID: •••• 4242</div>
+            <button class="ice-btn" onclick="processPayment()">Authorize Transfer</button>
+        </div>
+
+        <div id="step-tracking" class="step-content">
+            <h2 class="shimmer">Dispatched</h2>
+            <div class="progress-track">
+                <div class="progress-fill" id="fill"></div>
+            </div>
+            <p id="status" class="status-msg">Initializing delivery...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Init confirmation data
+        const p = JSON.parse(localStorage.getItem("selectedProduct"));
+        if(p) {
+            document.getElementById("confImage").src = p.image;
+            document.getElementById("confName").innerText = p.name;
+            document.getElementById("confPrice").innerText = p.price;
+        }
+
+        function goToStep(stepId) {
+            document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        function processPayment() {
+            goToStep('step-tracking');
+            let progress = 0;
+            const status = document.getElementById("status");
+            const fill = document.getElementById("fill");
+            const msgs = ["Securing Item...", "Ice Packing...", "Out for Delivery", "Arrived"];
+            
+            const interval = setInterval(() => {
+                progress += 25;
+                fill.style.width = progress + "%";
+                status.innerText = msgs[progress/25 - 1];
+                if(progress >= 100) clearInterval(interval);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
