@@ -1,53 +1,56 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; }
+body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
 
-/* LANDING - THE LETTERBOX FIX */
-.landing-page {
-    /* Focuses the 'camera' 65% from the left to keep his hand/orb centered on mobile */
-    background: #000 url('assets/iceman_bg1.png') no-repeat 65% center;
-    background-size: cover; 
-    height: 100dvh;
-    width: 100vw;
+/* LANDING PAGE */
+.landing-page.vertical-crop {
+    background: #000 url('assets/iceman_portrait.png') no-repeat center center;
+    background-size: cover;
+    height: 100dvh; width: 100vw;
     overflow: hidden;
-    position: relative;
+}
+
+.hud-center {
+    position: absolute;
+    top: 65%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column;
+    align-items: center; width: 100%;
 }
 
 .ice-hitbox {
-    position: absolute;
-    /* These percentages now align with the '65% center' background position */
-    top: 55%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    
-    width: 200px; 
-    height: 200px;
+    width: 200px; height: 200px;
     border-radius: 50%;
-    z-index: 10;
-    cursor: pointer;
-    
-    /* Light blue tint for alignment testing */
     background: radial-gradient(circle, rgba(120, 180, 255, 0.2) 0%, transparent 70%);
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.ice-hitbox.listening {
-    background: radial-gradient(circle, rgba(120, 180, 255, 0.5) 0%, transparent 70%);
-    box-shadow: 0 0 50px rgba(0, 150, 255, 0.3);
+#chat-message {
+    margin-top: 20px;
+    color: rgba(120, 180, 255, 0.5); /* Transparent blue */
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 4px; text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(120, 180, 255, 0.3);
+    animation: pulseTransparency 2s infinite ease-in-out;
 }
 
-/* UI ELEMENTS */
-.bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh; }
-.product-stage { padding: 20px; display: flex; flex-direction: column; align-items: center; }
+@keyframes pulseTransparency {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
 
-.flow-step { display: none; flex-direction: column; align-items: center; padding: 50px 20px; }
-.flow-step.active { display: flex; animation: fadeIn 0.5s ease; }
-
-@keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-
+/* UI THEME */
+.bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh; padding: 20px; }
 .ice-btn {
     background: #fff; color: #000; border: none; padding: 20px;
     width: 100%; border-radius: 50px; font-weight: 900; letter-spacing: 2px;
-    margin-top: 20px; cursor: pointer;
+    margin-top: 20px; cursor: pointer; text-transform: uppercase;
 }
 
+.flow-step { display: none; text-align: center; }
+.flow-step.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease; }
+.preview-img { width: 100%; max-width: 300px; border-radius: 20px; margin-bottom: 20px; }
 .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin: 20px 0; }
 .fill { height: 100%; width: 0%; background: #78b4ff; transition: width 1s ease; box-shadow: 0 0 15px #78b4ff; }
+
+@keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
