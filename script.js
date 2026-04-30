@@ -55,7 +55,6 @@ if (Speech && orb) {
         rec.start();
     } catch(e) {
         rec.start();
-    }
 };
 
 }
