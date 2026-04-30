@@ -3,24 +3,30 @@ body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; }
 
 /* LANDING - THE LETTERBOX FIX */
 .landing-page {
-    background: #000 url('assets/iceman_bg.png') no-repeat center center;
-    background-size: contain; /* Prevents squashing/zooming */
+    /* Focuses the 'camera' 65% from the left to keep his hand/orb centered on mobile */
+    background: #000 url('assets/iceman_bg.png') no-repeat 65% center;
+    background-size: cover; 
     height: 100dvh;
     width: 100vw;
     overflow: hidden;
+    position: relative;
 }
 
 .ice-hitbox {
     position: absolute;
-    top: 55%; /* Centered on hand */
-    left: 45%; 
+    /* These percentages now align with the '65% center' background position */
+    top: 55%; 
+    left: 50%; 
     transform: translate(-50%, -50%);
-    width: 200px; height: 200px;
+    
+    width: 200px; 
+    height: 200px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(120, 180, 255, 0.2) 0%, transparent 70%);
-    cursor: pointer;
     z-index: 10;
-    transition: 0.3s;
+    cursor: pointer;
+    
+    /* Light blue tint for alignment testing */
+    background: radial-gradient(circle, rgba(120, 180, 255, 0.2) 0%, transparent 70%);
 }
 
 .ice-hitbox.listening {
