@@ -4,7 +4,7 @@ body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; }
 /* LANDING - THE LETTERBOX FIX */
 .landing-page {
     /* Focuses the 'camera' 65% from the left to keep his hand/orb centered on mobile */
-    background: #000 url('assets/iceman_bg.png') no-repeat 65% center;
+    background: #000 url('assets/iceman_bg1.png') no-repeat 65% center;
     background-size: cover; 
     height: 100dvh;
     width: 100vw;
