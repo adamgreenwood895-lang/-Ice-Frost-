@@ -42,7 +42,7 @@ if (Speech && orb) {
 
     orb.onclick = () => {
         const msg = document.getElementById("chat-message");
-        msg.innerText = "LISTENING...";
+        msg.innerText = "LISTENING";
         msg.style.opacity = "1";
         msg.style.color = "#ffffff";
         
