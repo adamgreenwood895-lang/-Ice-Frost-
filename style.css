@@ -22,11 +22,6 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
     transition: 0.3s;
 }
 
-@keyframes pulseTransparency {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.05); }
-}
-
 /* UI THEME */
 .bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh;
 .product-stage { padding: 20px; display: flex; flex-direction: column; align-items: center; }
