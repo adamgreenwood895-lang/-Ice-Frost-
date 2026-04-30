@@ -1,98 +1,86 @@
 const DB = {
     hoodies: [
-        { name: "FROST HOODIE V1", price: "£85", image: "assets/hoodies/h1.jpg" },
-        { name: "FROST HOODIE V2", price: "£85", image: "assets/hoodies/h2.jpg" },
-        { name: "FROST HOODIE V3", price: "£85", image: "assets/hoodies/h3.jpg" },
-        { name: "FROST HOODIE V4", price: "£85", image: "assets/hoodies/h4.jpg" }
+        { name: "FROST HOODIE V1", price: "£85", image: "assets/hoodies/hoodie1.jpg" },
+        { name: "FROST HOODIE V2", price: "£85", image: "assets/hoodies/hoodie2.jpg" },
+        { name: "FROST HOODIE V3", price: "£85", image: "assets/hoodies/hoodie3.jpg" },
+        { name: "FROST HOODIE V4", price: "£85", image: "assets/hoodies/hoodie4.jpg" }
     ],
     tshirts: [
-        { name: "ICE TEE V1", price: "£35", image: "assets/tshirts/t1.jpg" },
-        { name: "ICE TEE V2", price: "£35", image: "assets/tshirts/t2.jpg" },
-        { name: "ICE TEE V3", price: "£35", image: "assets/tshirts/t3.jpg" },
-        { name: "ICE TEE V4", price: "£35", image: "assets/tshirts/t4.jpg" }
+        { name: "ICE TEE V1", price: "£35", image: "assets/tshirts/tshirt1.jpg" },
+        { name: "ICE TEE V2", price: "£35", image: "assets/tshirts/tshirt2.jpg" },
+        { name: "ICE TEE V3", price: "£35", image: "assets/tshirts/tshirt3.jpg" },
+        { name: "ICE TEE V4", price: "£35", image: "assets/tshirts/tshirt4.jpg" }
     ],
     tracksuits: [
-        { name: "SUB-ZERO V1", price: "£120", image: "assets/tracksuits/tr1.jpg" },
-        { name: "SUB-ZERO V2", price: "£120", image: "assets/tracksuits/tr2.jpg" },
-        { name: "SUB-ZERO V3", price: "£120", image: "assets/tracksuits/tr3.jpg" },
-        { name: "SUB-ZERO V4", price: "£120", image: "assets/tracksuits/tr4.jpg" }
+        { name: "SUB-ZERO V1", price: "£120", image: "assets/tracksuits/tracksuit1.jpg" },
+        { name: "SUB-ZERO V2", price: "£120", image: "assets/tracksuits/tracksuit2.jpg" },
+        { name: "SUB-ZERO V3", price: "£120", image: "assets/tracksuits/tracksuit3.jpg" },
+        { name: "SUB-ZERO V4", price: "£120", image: "assets/tracksuits/tracksuit4.jpg" }
     ],
     bags: [
-        { name: "ARCTIC V1", price: "£55", image: "assets/bags/b1.jpg" },
-        { name: "ARCTIC V2", price: "£55", image: "assets/bags/b2.jpg" },
-        { name: "ARCTIC V3", price: "£55", image: "assets/bags/b3.jpg" },
-        { name: "ARCTIC V4", price: "£55", image: "assets/bags/b4.jpg" }
+        { name: "ARCTIC V1", price: "£55", image: "assets/bags/bag1.jpg" },
+        { name: "ARCTIC V2", price: "£55", image: "assets/bags/bag2.jpg" },
+        { name: "ARCTIC V3", price: "£55", image: "assets/bags/bag3.jpg" },
+        { name: "ARCTIC V4", price: "£55", image: "assets/bags/bag4.jpg" }
     ]
 };
 
-// --- ELITE VOICE ENGINE ---
+// --- VOICE RECOGNITION ENGINE ---
 const orb = document.getElementById("orbTrigger");
-const orbText = document.getElementById("orbStatus");
+const orbStatus = document.getElementById("orbStatus");
 const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (Speech && orb) {
     const recognition = new Speech();
-    recognition.lang = 'en-US'; // Forces a standard for better matching
-    recognition.interimResults = false; 
+    recognition.lang = 'en-GB';
 
     recognition.onresult = (e) => {
-        const cmd = e.results[0][0].transcript.toLowerCase();
-        console.log("AI Heard:", cmd); // Check your browser console (F12) to see this
+        const result = e.results[0][0].transcript.toLowerCase();
+        orbStatus.innerText = "CHECKING...";
         
-        // Show the user what was heard inside the orb
-        orbText.innerText = cmd.split(" ")[0].toUpperCase(); 
+        let targetCat = "";
+        // Fuzzy matching for better UX
+        if (result.includes("hoodie") || result.includes("hoody")) targetCat = "hoodies";
+        if (result.includes("shirt") || result.includes("tee") || result.includes("t-shirt")) targetCat = "tshirts";
+        if (result.includes("tracksuit") || result.includes("track")) targetCat = "tracksuits";
+        if (result.includes("bag") || result.includes("pack")) targetCat = "bags";
 
-        let category = "";
-        
-        // Expanded keyword matching for "fuzzy" speech
-        if(cmd.includes("hoodie") || cmd.includes("hoody") || cmd.includes("hood")) category = "hoodies";
-        if(cmd.includes("tshirt") || cmd.includes("tee") || cmd.includes("shirt")) category = "tshirts";
-        if(cmd.includes("tracksuit") || cmd.includes("track") || cmd.includes("suit")) category = "tracksuits";
-        if(cmd.includes("bag") || cmd.includes("pack") || cmd.includes("rucksack")) category = "bags";
-
-        if(category) {
-            localStorage.setItem("frost_category", category);
-            orbText.style.color = "#ffffff";
-            // Immediate navigation
+        if (targetCat) {
+            localStorage.setItem("frost_category", targetCat);
+            orbStatus.innerText = "MATCHED";
             window.location.href = "products.html";
         } else {
-            orbText.innerText = "NO MATCH";
-            orbText.style.color = "#ff4b4b";
-            setTimeout(() => { orbText.innerText = "FROST"; orbText.style.color = "#00f2ff"; }, 1500);
+            orbStatus.innerText = "RETRY";
+            setTimeout(() => orbStatus.innerText = "FROST", 1200);
         }
     };
 
-    recognition.onerror = (e) => {
-        orbText.innerText = "ERROR";
-        console.error("Speech Error:", e.error);
-    };
-
     orb.onclick = () => {
-        orbText.innerText = "LISTENING";
-        orbText.style.color = "#ffffff";
+        orbStatus.innerText = "LISTENING";
         recognition.start();
     };
 }
 
-// --- PRODUCT GRID LOADER ---
+// --- PRODUCTS PAGE LOGIC ---
 function loadProducts() {
     const cat = localStorage.getItem("frost_category") || "hoodies";
     const grid = document.getElementById("productGrid");
-    const items = DB[cat];
+    if (!grid) return;
 
-    if(!grid) return; // Prevent errors if not on products page
+    const items = DB[cat] || DB.hoodies;
+    grid.innerHTML = ""; 
 
     items.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "product-card";
-        div.innerHTML = `
-            <img src="${item.image}">
-            <p style="font-size:11px; font-weight:800; margin-bottom:5px;">${item.name}</p>
-            <p style="color:#00f2ff; margin-bottom:12px;">${item.price}</p>
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <p style="font-weight:800; font-size:12px; margin-top:5px;">${item.name}</p>
+            <p style="color:#00f2ff; margin-bottom:10px; font-size:11px;">${item.price}</p>
             <button class="frost-btn" style="padding:10px; font-size:10px;" 
                 onclick='selectItem(${JSON.stringify(item)})'>SELECT</button>
         `;
-        grid.appendChild(div);
+        grid.appendChild(card);
     });
 }
 
@@ -101,23 +89,33 @@ function selectItem(item) {
     window.location.href = "checkout.html";
 }
 
-// --- CHECKOUT & TRACKING ---
+// --- CHECKOUT & TRACKING LOGIC ---
+function initCheckout() {
+    const itemData = localStorage.getItem("frost_selected");
+    if (itemData && document.getElementById("itemName")) {
+        const item = JSON.parse(itemData);
+        document.getElementById("itemImg").src = item.image;
+        document.getElementById("itemName").innerText = item.name;
+        document.getElementById("itemPrice").innerText = item.price;
+    }
+}
+
 function nextFlow(step) {
     document.querySelectorAll('.flow-step').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById('step' + step);
-    if(target) target.classList.add('active');
+    const nextStep = document.getElementById('step' + step);
+    if (nextStep) nextStep.classList.add('active');
 }
 
 function startTracking() {
     nextFlow(3);
     const fill = document.getElementById("trackFill");
     const status = document.getElementById("trackStatus");
-    const stages = ["VALIDATING...", "FREEZING...", "DISPATCHED", "DELIVERED"];
+    const stages = ["VALIDATING", "ENCRYPTING", "DISPATCHED", "DELIVERED"];
 
     stages.forEach((txt, i) => {
         setTimeout(() => {
-            if(fill) fill.style.width = ((i + 1) * 25) + "%";
-            if(status) status.innerText = txt;
+            if (fill) fill.style.width = ((i + 1) * 25) + "%";
+            if (status) status.innerText = txt;
         }, (i + 1) * 2000);
     });
 }
