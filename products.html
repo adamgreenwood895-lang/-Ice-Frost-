@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FROST | Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-products">
+    <header class="nav-header">
+        <div onclick="window.location.href='index.html'" class="back-btn">← TERMINATE</div>
+    </header>
+
+    <div class="products-container">
+        <h1 id="categoryTitle" class="ice-title">COLLECTION</h1>
+        <div class="product-stage" id="productStage"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Specific runner for this page
+        if(typeof loadProductsPage === 'function') loadProductsPage();
+    </script>
+</body>
+</html>
 
