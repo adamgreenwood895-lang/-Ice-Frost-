@@ -3,42 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FROST | PROCESSING</title>
+    <title>FROST | PROCESS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark">
-    <div class="flow-box">
+
+    <div class="checkout-container">
+        <!-- STEP 1: CONFIRM -->
         <div id="step1" class="flow-step active">
-            <img id="conf-img" src="" class="preview-img">
-            <h2 id="conf-name">ITEM</h2>
-            <p id="conf-price" class="blue-price">£0.00</p>
-            <button class="ice-btn" onclick="showStep(2)">CONFIRM ORDER</button>
+            <img id="itemImg" src="" style="width:100%; border-radius:20px; margin-bottom:20px;">
+            <h2 id="itemName">ITEM</h2>
+            <p id="itemPrice" style="color:#00f2ff; margin-bottom:30px;">£0.00</p>
+            <button class="ice-btn" onclick="startPayment()">PROCEED TO SECURE</button>
         </div>
 
+        <!-- STEP 2: PAYMENT -->
         <div id="step2" class="flow-step">
-            <h2>SECURE PAYMENT</h2>
-            <div class="glass-card">ENC_ID: •••• •••• •••• 4242</div>
-            <button class="ice-btn" onclick="startTracking()">AUTHORIZE</button>
+            <h2>PAYMENT GATEWAY</h2>
+            <div style="background:rgba(255,255,255,0.05); padding:30px; border-radius:20px; width:100%; margin:20px 0;">
+                <p>ID: •••• •••• •••• 4242</p>
+            </div>
+            <button class="ice-btn" onclick="startTracking()">AUTHORIZE TRANSFER</button>
         </div>
 
+        <!-- STEP 3: TRACKING -->
         <div id="step3" class="flow-step">
-            <h2 class="shimmer">MANIFESTED</h2>
-            <div class="progress-bar"><div id="fill" class="fill"></div></div>
-            <p id="status">Syncing Logistics...</p>
+            <h1 style="letter-spacing:10px;">MANIFESTED</h1>
+            <div class="progress-bar"><div id="trackFill" class="progress-fill"></div></div>
+            <p id="trackStatus" style="font-size:12px; letter-spacing:3px;">INITIALIZING...</p>
         </div>
     </div>
 
     <script src="script.js"></script>
     <script>
-        const p = JSON.parse(localStorage.getItem("selectedProduct"));
-        if(p){
-            document.getElementById("conf-img").src = p.image;
-            document.getElementById("conf-name").innerText = p.name;
-            document.getElementById("conf-price").innerText = p.price;
-        }
-        function showStep(n){
-            document.querySelectorAll('.flow-step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step'+n).classList.add('active');
+        const item = JSON.parse(localStorage.getItem("frost_item"));
+        if(item) {
+            document.getElementById("itemImg").src = item.image;
+            document.getElementById("itemName").innerText = item.name;
+            document.getElementById("itemPrice").innerText = item.price;
         }
     </script>
 </body>
