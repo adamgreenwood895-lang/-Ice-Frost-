@@ -32,9 +32,13 @@ if (Speech && orb) {
     };
 
     orb.onclick = () => {
-        document.getElementById("chat-message").innerText = "LISTENING...";
-        rec.start();
-    };
+    const msg = document.getElementById("chat-message");
+    msg.innerText = "LISTENING...";
+    msg.style.opacity = "1"; // Make it fully solid when active
+    msg.style.color = "#ffffff"; // Turn white briefly for feedback
+    rec.start();
+};
+
 }
 
 // PRODUCT LOADER
