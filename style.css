@@ -34,11 +34,6 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
     border: 1px solid rgba(0, 242, 255, 0.05); /* Very faint outer ring */
 }
 
-#chat-container {
-    margin-top: 30px; /* Increased gap so it's clearly below the orb */
-    text-align: center;
-}
-
 #chat-message {
     /* Different color: Electric Cyan to contrast the Deep Blue orb */
     color: #00f2ff; 
