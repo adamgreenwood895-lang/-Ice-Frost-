@@ -12,7 +12,7 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
 /* Container - Boosted z-index to stay on top */
 .hud-center {
     position: absolute;
-    top: 71%; 
+    top: 80%; 
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -38,7 +38,7 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
     /* Different color: Electric Cyan to contrast the Deep Blue orb */
     color: #00f2ff; 
     opacity: 0.6; /* Higher opacity than before for visibility */
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 900;
     letter-spacing: 5px; /* Wider spacing for elite HUD look */
     text-transform: uppercase;
