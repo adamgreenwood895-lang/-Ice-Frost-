@@ -1,52 +1,47 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; }
+body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; }
 
-/* LANDING */
+/* LANDING - THE LETTERBOX FIX */
 .landing-page {
-    background: url('./assets/iceman_bg.png') center/cover no-repeat;
+    background: #000 url('assets/iceman_bg.png') no-repeat center center;
+    background-size: contain; /* Prevents squashing/zooming */
     height: 100dvh;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .ice-hitbox {
     position: absolute;
-    top: 50%; left: 50%;
+    top: 55%; /* Centered on hand */
+    left: 45%; 
     transform: translate(-50%, -50%);
-    width: 280px; height: 280px;
+    width: 200px; height: 200px;
     border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 180, 255, 0.2) 0%, transparent 70%);
     cursor: pointer;
-    background: radial-gradient(circle, rgba(120, 200, 255, 0.1) 0%, transparent 70%);
+    z-index: 10;
+    transition: 0.3s;
 }
 
 .ice-hitbox.listening {
-    background: radial-gradient(circle, rgba(120, 200, 255, 0.3) 0%, transparent 70%);
-    box-shadow: 0 0 80px rgba(0, 160, 255, 0.3);
+    background: radial-gradient(circle, rgba(120, 180, 255, 0.5) 0%, transparent 70%);
+    box-shadow: 0 0 50px rgba(0, 150, 255, 0.3);
 }
 
-/* CHAT */
-#chat { position: absolute; bottom: 15%; width: 100%; text-align: center; }
-.message { text-transform: uppercase; letter-spacing: 2px; font-size: 11px; opacity: 0.6; }
+/* UI ELEMENTS */
+.bg-dark { background: radial-gradient(circle at top, #0a111a, #000); min-height: 100vh; }
+.product-stage { padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-/* CHECKOUT FLOW */
-.step-content { 
-    display: none; 
-    flex-direction: column; 
-    align-items: center; 
-    padding: 40px;
-    animation: fadeIn 0.8s ease;
-}
-.step-content.active { display: flex; }
+.flow-step { display: none; flex-direction: column; align-items: center; padding: 50px 20px; }
+.flow-step.active { display: flex; animation: fadeIn 0.5s ease; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); filter: blur(10px); }
-    to { opacity: 1; transform: scale(1); filter: blur(0); }
-}
+@keyframes fadeIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
 
 .ice-btn {
-    background: #fff; color: #000; border: none;
-    padding: 18px 40px; border-radius: 50px;
-    font-weight: 800; letter-spacing: 1px; cursor: pointer;
-    margin-top: 20px; width: 100%;
+    background: #fff; color: #000; border: none; padding: 20px;
+    width: 100%; border-radius: 50px; font-weight: 900; letter-spacing: 2px;
+    margin-top: 20px; cursor: pointer;
 }
 
-.progress-track { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin: 20px 0; border-radius: 2px; }
-.progress-fill { height: 100%; background: #78b4ff; width: 0%; transition: width 0.5s ease; box-shadow: 0 0 15px #78b4ff; }
+.progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin: 20px 0; }
+.fill { height: 100%; width: 0%; background: #78b4ff; transition: width 1s ease; box-shadow: 0 0 15px #78b4ff; }
