@@ -41,8 +41,17 @@ if (Speech && orb) {
     };
 
     orb.onclick = () => {
-        document.getElementById("chat-message").innerText = "LISTENING...";
-        rec.start();
+        const msg = document.getElementById("chat-message");
+        msg.innerText = "LISTENING...";
+        msg.style.opacity = "1";
+        msg.style.color = "#ffffff";
+        
+        try {
+            rec.stop(); // Stop any current session before starting a new one
+            rec.start();
+        } catch(e) {
+            rec.start();
+        }
     };
 }
 
