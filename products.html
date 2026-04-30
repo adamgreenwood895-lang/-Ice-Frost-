@@ -7,19 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark">
-    <header class="nav-bar">
-        <div onclick="window.location.href='index.html'" class="back-link">← TERMINATE</div>
-    </header>
-
-    <div class="content-wrapper">
-        <h1 id="cat-title" class="frost-title">COLLECTION</h1>
-        <div class="product-stage" id="stage"></div>
-    </div>
-
+    <h2 style="text-align:center; letter-spacing:10px; margin-bottom:40px;">COLLECTION</h2>
+    <div class="product-grid" id="productGrid"></div>
     <script src="script.js"></script>
-    <script>
-        // Initialize the product grid on load
-        window.onload = () => loadProducts();
-    </script>
+    <script>window.onload = loadProducts;</script>
 </body>
 </html>
