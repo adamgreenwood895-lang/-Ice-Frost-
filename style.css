@@ -27,7 +27,7 @@ body {
 /* THE ORB - NUDGED UP TO 60% */
 .orb-container {
     position: absolute;
-    top: 60%; /* Moved up from 68% to hit the hand better */
+    top: 64%; /* Moved up from 68% to hit the hand better */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 180px; /* Slightly smaller for better precision */
