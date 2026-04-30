@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FROST | PROCESS</title>
+    <title>FROST | PROCESSING</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-dark">
-
-    <div class="checkout-container">
-        <!-- STEP 1: CONFIRM -->
+    <div class="flow-container">
+        <!-- STEP 1: REVIEW -->
         <div id="step1" class="flow-step active">
-            <img id="itemImg" src="" style="width:100%; border-radius:20px; margin-bottom:20px;">
-            <h2 id="itemName">ITEM</h2>
-            <p id="itemPrice" style="color:#00f2ff; margin-bottom:30px;">£0.00</p>
-            <button class="ice-btn" onclick="startPayment()">PROCEED TO SECURE</button>
+            <div class="img-frame">
+                <img id="itemImg" src="" alt="Product">
+            </div>
+            <h2 id="itemName">ITEM_ID</h2>
+            <p id="itemPrice" class="blue-accent">£0.00</p>
+            <button class="frost-btn" onclick="nextFlow(2)">INITIATE SECURE BUY</button>
         </div>
 
         <!-- STEP 2: PAYMENT -->
         <div id="step2" class="flow-step">
-            <h2>PAYMENT GATEWAY</h2>
-            <div style="background:rgba(255,255,255,0.05); padding:30px; border-radius:20px; width:100%; margin:20px 0;">
-                <p>ID: •••• •••• •••• 4242</p>
+            <h2 class="shimmer">ENCRYPTED_PAY</h2>
+            <div class="pay-card">
+                <p>CREDIT_AUTH: •••• 4242</p>
             </div>
-            <button class="ice-btn" onclick="startTracking()">AUTHORIZE TRANSFER</button>
+            <button class="frost-btn" onclick="startTracking()">AUTHORIZE</button>
         </div>
 
         <!-- STEP 3: TRACKING -->
         <div id="step3" class="flow-step">
-            <h1 style="letter-spacing:10px;">MANIFESTED</h1>
-            <div class="progress-bar"><div id="trackFill" class="progress-fill"></div></div>
-            <p id="trackStatus" style="font-size:12px; letter-spacing:3px;">INITIALIZING...</p>
+            <h1 class="shimmer">MANIFESTED</h1>
+            <div class="track-line"><div id="trackFill" class="track-fill"></div></div>
+            <p id="trackStatus" class="status-label">SYNCING...</p>
         </div>
     </div>
 
     <script src="script.js"></script>
     <script>
-        const item = JSON.parse(localStorage.getItem("frost_item"));
+        const item = JSON.parse(localStorage.getItem("frost_selected"));
         if(item) {
             document.getElementById("itemImg").src = item.image;
             document.getElementById("itemName").innerText = item.name;
