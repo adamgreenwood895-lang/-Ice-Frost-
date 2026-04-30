@@ -41,18 +41,23 @@ if (Speech && orb) {
     };
 
     orb.onclick = () => {
-        const msg = document.getElementById("chat-message");
-        msg.innerText = "LISTENING...";
-        msg.style.opacity = "1";
-        msg.style.color = "#ffffff";
-        
-        try {
-            rec.stop(); // Stop any current session before starting a new one
-            rec.start();
-        } catch(e) {
-            rec.start();
-        }
-    };
+    const msg = document.getElementById("chat-message");
+    msg.innerText = "LISTENING";
+    msg.style.opacity = "1";
+    msg.style.color = "#ffffff";
+    
+    // Visual feedback: Make the orb "pulse" when clicked
+    orb.style.transform = "scale(0.95)";
+    setTimeout(() => orb.style.transform = "scale(1)", 100);
+
+    try {
+        rec.stop();
+        rec.start();
+    } catch(e) {
+        rec.start();
+    }
+};
+
 }
 
 // --- PRODUCT LOADER ---
