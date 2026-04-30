@@ -11,43 +11,45 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
 
 .hud-center {
     position: absolute;
-    top: 75%; 
+    top: 65%; /* Adjust this to line up with his hand */
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 100%;
-    z-index: 999; /* Ensure it sits above the background image */
-    pointer-events: none; 
+    justify-content: center;
+    z-index: 999;
 }
 
 .ice-hitbox {
-    width: 200px; 
+    position: absolute; /* Layered at the bottom */
+    width: 200px;
     height: 200px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(0, 242, 255, 0.15) 0%, transparent 75%);
     cursor: pointer;
-    pointer-events: auto; 
     transition: 0.4s ease;
-    border: 1px solid rgba(0, 242, 255, 0.05); /* Very faint outer ring */
 }
 
 #chat-container {
-    margin-top: 30px; /* Increased gap so it's clearly below the orb */
+    position: relative;
+    z-index: 1000; /* Sits on top of the orb */
+    pointer-events: none; /* Clicks go through text to the orb */
     text-align: center;
+    width: 80%; /* Keeps text contained inside the circle */
 }
 
 #chat-message {
-    /* Different color: Electric Cyan to contrast the Deep Blue orb */
-    color: #00f2ff; 
-    opacity: 0.6; /* Higher opacity than before for visibility */
-    font-size: 11px;
+    color: #00f2ff;
+    opacity: 0.7;
+    font-size: 9px; /* Slightly smaller to fit better inside */
     font-weight: 900;
-    letter-spacing: 5px; /* Wider spacing for elite HUD look */
+    letter-spacing: 2px; /* Tightened so it fits inside the orb diameter */
     text-transform: uppercase;
-    text-shadow: 0 0 15px rgba(0, 242, 255, 0.6);
-    font-family: 'Courier New', Courier, monospace; /* Monospace feels more 'code' like */
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.8);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.2;
 }
 
 @keyframes pulseTransparency {
