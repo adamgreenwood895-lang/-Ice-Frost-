@@ -11,7 +11,7 @@ body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
 
 .hud-center {
     position: absolute;
-    top: 65%; /* Adjust this to move the whole unit up/down */
+    top: 69%; /* Adjust this to move the whole unit up/down */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 200px;
